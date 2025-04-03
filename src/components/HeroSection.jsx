@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Typed from "typed.js";
 import { gsap } from "gsap";
@@ -8,6 +8,7 @@ const HeroSection = () => {
   const typedElement = useRef(null);
   const heroContainerRef = useRef(null);
   const { showSection } = useSection();
+  const [imageError, setImageError] = useState(false);
 
   // Usando Typed.js para efeito de digitação
   useEffect(() => {
@@ -37,6 +38,12 @@ const HeroSection = () => {
   const navigateToContact = (e) => {
     e.preventDefault();
     showSection("contact");
+  };
+
+  // Handler para erro de carregamento da imagem
+  const handleImageError = () => {
+    console.log("Erro ao carregar a imagem de perfil");
+    setImageError(true);
   };
 
   // Animação inicial para a hero section
@@ -90,6 +97,13 @@ const HeroSection = () => {
     }
   }, []);
 
+  // Avatar placeholder para caso a imagem não carregue
+  const avatarPlaceholder = (
+    <div className="avatar-placeholder">
+      <i className="fas fa-user-circle"></i>
+    </div>
+  );
+
   return (
     <div className="hero-header" ref={heroContainerRef}>
       <div className="wrapper">
@@ -97,7 +111,15 @@ const HeroSection = () => {
 
         <div className="container">
           <div className="hero-pic">
-            <img src="/images/photos/perfil.jpg" alt="Luis Carlos profile" />
+            {imageError ? (
+              avatarPlaceholder
+            ) : (
+              <img
+                src="/images/photos/perfil.jpg"
+                alt="Luis Carlos profile"
+                onError={handleImageError}
+              />
+            )}
           </div>
           <div className="hero-text">
             <h5>

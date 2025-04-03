@@ -14,6 +14,7 @@
     <!-- Preload de fontes críticas para melhorar o FCP -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Adicionar Font Awesome para os ícones -->
     <link
@@ -30,7 +31,7 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <!-- Preload da imagem de hero para melhorar o LCP (substituir pelo caminho da sua imagem principal) -->
-    <link rel="preload" as="image" href="%PUBLIC_URL%/images/profile.jpg" />
+    <link rel="preload" as="image" href="%PUBLIC_URL%/images/photos/perfil.jpg" />
 
     <title>Portfólio | Luiz Carlos</title>
 
@@ -77,6 +78,34 @@
         }
       }
     </style>
+    
+    <!-- Script para supressar erros de WebSocket -->
+    <script>
+      // Evita que erros de WebSocket sejam mostrados no console
+      window.addEventListener('error', function(event) {
+        if (event.message && event.message.includes('WebSocket')) {
+          event.preventDefault();
+          console.debug('WebSocket connection issue suppressed');
+          return true;
+        }
+      }, true);
+      
+      // Cria um WebSocket dummy para substituir o comportamento padrão
+      if (typeof WebSocket !== 'undefined') {
+        const OriginalWebSocket = WebSocket;
+        window.WebSocket = function(url, protocols) {
+          const ws = new OriginalWebSocket(url, protocols);
+          
+          // Suprimir erro de conexão
+          ws.onerror = function(e) {
+            console.debug('WebSocket error suppressed', url);
+          };
+          
+          return ws;
+        };
+        window.WebSocket.prototype = OriginalWebSocket.prototype;
+      }
+    </script>
   </head>
   <body>
     <noscript

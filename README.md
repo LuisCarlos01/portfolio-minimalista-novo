@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Portfolio Minimalista
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto de portfolio desenvolvido em React com foco em design minimalista e alta performance.
 
-## Available Scripts
+## 🚀 Tecnologias Utilizadas
 
-In the project directory, you can run:
+- React.js
+- GSAP para animações
+- Styled Components e SCSS para estilização
+- TypeScript para tipagem estática
 
-### `npm start`
+## 📋 Características
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Design responsivo
+- Animações fluidas e elegantes
+- Navegação em SPA (Single Page Application)
+- Performance otimizada
+- Estratégias para carregamento rápido
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔧 Instalação e Configuração
 
-### `npm test`
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/portfolio-minimalista.git
+cd portfolio-minimalista
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Instale as dependências:
+```bash
+npm install
+```
 
-### `npm run build`
+3. Execute o projeto em desenvolvimento:
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Para gerar a versão de produção:
+```bash
+npm run build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📦 Estrutura do Projeto
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+portfolio-minimalista/
+├── public/
+│   ├── images/
+│   └── index.html
+├── src/
+│   ├── components/
+│   ├── contexts/
+│   ├── data/
+│   ├── hooks/
+│   ├── styles/
+│   ├── utils/
+│   ├── App.jsx
+│   └── index.jsx
+└── scripts/
+    └── check-styles.js
+```
 
-### `npm run eject`
+## 🎨 Sistema de Estilos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Organização de Estilos
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Os estilos do projeto são centralizados através do arquivo `src/styles/index.js`, que importa todos os arquivos CSS e SCSS necessários. Isso garante que não haja duplicações e conflitos de estilos.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **`src/styles/style.css`**: Contém estilos globais e reset CSS
+- **`src/styles/components/`**: Contém arquivos SCSS específicos para cada componente
+- **`src/styles/variables.css`**: Define variáveis CSS globais
+- **`src/styles/custom.css`**: Para customizações específicas (último a ser importado)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Verificação de Conflitos de Estilos
 
-## Learn More
+O projeto inclui um sistema de verificação de conflitos de estilos. Para executar a verificação:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run check-styles
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Este comando irá:
+1. Detectar seletores CSS duplicados em diferentes arquivos
+2. Identificar importações CSS duplicadas em componentes
+3. Verificar possíveis conflitos entre estilos inline e globais
 
-### Code Splitting
+### Boas Práticas de Estilização
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **Não importe arquivos CSS/SCSS diretamente nos componentes**
+   - Use o sistema centralizado de importação em `src/styles/index.js`
 
-### Analyzing the Bundle Size
+2. **Use nomes de classes específicos para componentes**
+   - Prefixe classes com o nome do componente: `.hero-title` em vez de apenas `.title`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. **Evite estilos inline quando possível**
+   - Quando necessário, verifique se há conflitos com estilos globais
 
-### Making a Progressive Web App
+4. **Prefira variáveis CSS para valores reutilizados**
+   - Use as variáveis definidas em `variables.css`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+5. **Mantenha a especificidade de seletores baixa**
+   - Evite aninhamento profundo que dificulta sobrescrita
 
-### Advanced Configuration
+## 🔄 Verificação Automática
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Durante o desenvolvimento, o sistema verifica automaticamente conflitos de estilo. Você pode ver os resultados no console do navegador.
 
-### Deployment
+## 👨‍💻 Autor
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Luís Carlos** - [GitHub](https://github.com/LuisCarlos01)
 
-### `npm run build` fails to minify
+## 📄 Licença
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) para detalhes.

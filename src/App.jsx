@@ -8,8 +8,7 @@ import Footer from "./components/Footer";
 import FloatingAboutButton from "./components/FloatingAboutButton";
 import { SectionProvider } from "./contexts/SectionContext";
 import ResumeSection from "./components/ResumeSection";
-import "./styles/style.css";
-import "./styles/skill-modal.css";
+// Estilos são importados centralmente em src/styles/index.js
 
 function App() {
   // Efeito para aplicar estilos iniciais às seções

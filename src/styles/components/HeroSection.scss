@@ -32,6 +32,10 @@
   overflow: hidden;
   border: 10px solid #555;
   box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2a2a2a;
 }
 
 .hero-pic img {
@@ -42,6 +46,21 @@
 
 .hero-pic img:hover {
   transform: scale(1.1);
+}
+
+/* Estilo para o avatar placeholder */
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+}
+
+.avatar-placeholder i {
+  font-size: 120px;
+  color: #666;
 }
 
 .hero-text {

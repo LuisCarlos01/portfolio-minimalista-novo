@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../styles/preloader.css';
+// Estilos são importados centralmente em src/styles/index.js
 import useGsapAnimations from '../hooks/useGsapAnimations';
 
 const Preloader = () => {

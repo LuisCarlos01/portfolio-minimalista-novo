@@ -66,21 +66,56 @@ header {
   border-bottom: 2px solid var(--purple-soft);
 }
 
+/* ===== ESTILOS DA LOGO ===== */
 .logo {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
   font-family: "Dancing Script", cursive;
   font-size: 25px;
   color: #fffefe;
   position: relative;
-  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
+.copyright {
+  font-family: "Dancing Script", cursive;
+  font-weight: 500;
+  font-size: 22px;
+  color: white;
+  margin-right: 4px;
+  transition: transform 0.6s ease;
+}
+
+.logo-text {
+  font-family: "Dancing Script", cursive;
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.logo:hover .copyright {
+  transform: rotate(360deg);
+}
+
+.logo:hover .logo-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Estilos existentes para o logo icon (se necessário) */
 .logo i {
   height: 45px;
   width: 45px;
-  background-color: var(--purple-soft); /* Roxo suave */
+  background-color: var(--purple-soft);
   border-radius: 50%;
   color: #fff;
   font-weight: 700;
@@ -89,21 +124,6 @@ header {
   margin-right: 5px;
   cursor: pointer;
   text-align: center;
-}
-
-.logo-text {
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--gray-light); /* Cinza claro */
-  display: inline-block; /* Exibe como bloco inline */
-  opacity: 0; /* O texto começa invisível */
-  transform: translateY(-10px); /* O texto começa deslocado para cima */
-  transition: opacity 0.6s ease, transform 0.6s ease; /* Transições suaves */
-}
-
-.logo:hover .logo-text {
-  opacity: 1; /* Torna o texto visível */
-  transform: translateY(0); /* Move o texto para a posição original */
 }
 
 /* Estilo do botão de alternância */
@@ -648,13 +668,6 @@ nav .togglebtn span {
 }
 
 /* Estilos para o Logo e Copyright */
-.copyright {
-  font-family: fantasy;
-  align-items: center; /* Alinha verticalmente */
-  display: inline-flex; /* Exibe como flex */
-  transition: transform 0.6s ease; /* Transição suave para a rotação */
-}
-
 .code-by {
   align-items: center; /* Alinha verticalmente */
   display: inline-flex; /* Exibe como flex */
@@ -667,29 +680,6 @@ nav .togglebtn span {
   opacity: 0; /* Começa invisível */
   transition: opacity 0.4s ease; /* Transição suave para mostrar "Luis Carlos" */
   color: #ffffff; /* Cor do destaque */
-}
-
-.logo:hover .copyright {
-  transform: rotate(360deg); /* Rotaciona ao passar o mouse */
-}
-
-.logo-text {
-  font-family: "Dancing Script";
-  display: inline-block; /* Exibe como bloco inline */
-}
-
-.highlight {
-  font-family: "Dancing Script", cursive; /* Fonte do destaque */
-  color: #ffffff; /* Cor branca para "Luis" */
-  opacity: 0; /* Começa invisível */
-  transform: translateY(-10px); /* Começa deslocado para cima */
-  transition: opacity 0.6s ease, transform 0.6s ease; /* Suaviza a animação */
-}
-
-.logo:hover .logo-text,
-.logo:hover .highlight {
-  opacity: 1; /* Torna o texto visível */
-  transform: translateY(0); /* Move o texto para a posição original */
 }
 
 /* CSS (em style.css) */
