@@ -22,7 +22,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "check-styles": "node scripts/check-styles.js"
+    "check-styles": "node scripts/check-styles.js",
+    "check-code": "node scripts/check-code.js",
+    "review-changes": "node scripts/review-changes.js",
+    "install-hooks": "node scripts/install-hooks.js",
+    "postinstall": "npm run install-hooks"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +49,8 @@
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "chalk": "^4.1.2",
+    "glob": "^8.1.0",
     "typescript": "4.9.5"
   }
 }

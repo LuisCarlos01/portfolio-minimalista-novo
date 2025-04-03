@@ -35,21 +35,10 @@ export const validateStyles = async (isDev = process.env.NODE_ENV === 'developme
       // Importação dinâmica para não afetar o bundle de produção
       const { default: StyleValidator } = await import('../utils/styleValidator');
       
-      // Importar o fs usando importação dinâmica
-      const fs = await import('fs');
-      const path = await import('path');
+      // Nota: Removida a parte que usa fs e path, pois não funcionam no navegador
+      // Vamos usar apenas a validação básica que não depende de I/O
       
-      const validator = new StyleValidator();
-      
-      // Registrar estilos globais
-      const globalStylePath = path.resolve(__dirname, 'style.css');
-      if (fs.existsSync(globalStylePath)) {
-        const globalStyles = fs.readFileSync(globalStylePath, 'utf8');
-        validator.setGlobalStyles(globalStyles);
-      }
-      
-      // Validar estilos
-      validator.run();
+      console.log('Validação de estilos deve ser executada via npm run check-styles');
     } catch (error) {
       console.error('Erro ao validar estilos:', error);
     }
@@ -59,10 +48,7 @@ export const validateStyles = async (isDev = process.env.NODE_ENV === 'developme
 // Executar validação em desenvolvimento
 if (process.env.NODE_ENV === 'development') {
   // Apenas mostra a mensagem para não bloquear o carregamento
-  console.log('\n💅 Verificando estilos para possíveis conflitos...');
-  setTimeout(() => {
-    validateStyles();
-  }, 1000);
+  console.log('\n💅 O verificador de estilos está disponível via npm run check-styles');
 }
 
 // Exportação padrão para facilitar a importação

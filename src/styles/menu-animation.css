@@ -57,6 +57,7 @@
   width: 300px;
   height: 100vh;
   background: rgba(30, 30, 30, 0.95);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;

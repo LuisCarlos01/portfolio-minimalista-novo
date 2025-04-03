@@ -57,7 +57,10 @@ portfolio-minimalista/
 │   ├── App.jsx
 │   └── index.jsx
 └── scripts/
-    └── check-styles.js
+    ├── check-styles.js
+    ├── check-code.js
+    ├── review-changes.js
+    └── install-hooks.js
 ```
 
 ## 🎨 Sistema de Estilos
@@ -104,6 +107,68 @@ Este comando irá:
 ## 🔄 Verificação Automática
 
 Durante o desenvolvimento, o sistema verifica automaticamente conflitos de estilo. Você pode ver os resultados no console do navegador.
+
+## 🔍 Sistema de Revisão de Código
+
+O projeto inclui um sistema de revisão automática de código para evitar conflitos e duplicações.
+
+### Verificação Completa do Código
+
+Para realizar uma verificação completa do código do projeto:
+
+```bash
+npm run check-code
+```
+
+Esta verificação analisará:
+- Diretórios com nomes duplicados ou similares
+- Arquivos com nomes duplicados em diferentes locais
+- Arquivos com conteúdo similar ou duplicado
+- Conflitos entre diferentes linguagens e frameworks
+
+### Revisão de Alterações
+
+Para verificar apenas os arquivos modificados antes de um commit:
+
+```bash
+npm run review-changes
+```
+
+Este comando é executado automaticamente antes de cada commit Git, garantindo que novos arquivos ou modificações:
+1. Não dupliquem estruturas existentes
+2. Não causem conflitos com outras partes do código
+3. Sigam os padrões estabelecidos no projeto
+
+### Integração com Git
+
+O sistema está integrado com o Git através de hooks que são instalados automaticamente:
+
+```bash
+npm run install-hooks
+```
+
+Se você precisar ignorar a verificação ao fazer um commit, use a flag `--no-verify`:
+
+```bash
+git commit -m "Mensagem do commit" --no-verify
+```
+
+### Estrutura de Organização
+
+O projeto segue as seguintes diretrizes para organização do código:
+
+1. **Componentes específicos para cada seção**
+   - Cada seção do site tem seu próprio componente em `src/components/`
+   - Estilos relacionados são mantidos em `src/styles/components/`
+
+2. **Utilitários compartilhados**
+   - Funções e classes reutilizáveis são mantidas em `src/utils/`
+
+3. **Hooks personalizados**
+   - Lógica de estado e efeitos reutilizáveis em `src/hooks/`
+
+4. **Dados separados da lógica**
+   - Conteúdo e informações em `src/data/`
 
 ## 👨‍💻 Autor
 
