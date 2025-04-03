@@ -1,25 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
-import Header from "./Header";
-import Typed from "typed.js";
-import { gsap } from "gsap";
-import { useSection } from "../contexts/SectionContext";
+import React, { useEffect, useRef } from 'react';
+import Typed from 'typed.js';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { useSection } from '../contexts/SectionContext';
+import Header from './Header';
+import '../styles/components/HeroSection.scss';
+
+// Registra o plugin ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
-  const typedElement = useRef(null);
-  const heroContainerRef = useRef(null);
+  const typedEl = useRef(null);
+  const profileRef = useRef(null);
+  const textRef = useRef(null);
+  const btnGroupRef = useRef(null);
+  const socialRef = useRef(null);
   const { showSection } = useSection();
-  const [imageError, setImageError] = useState(false);
 
-  // Usando Typed.js para efeito de digitação
+  // Efeito de digitação
   useEffect(() => {
-    if (!typedElement.current) return;
-
-    const typed = new Typed(typedElement.current, {
-      strings: ["Freelancer", "Front-end Developer", "Web Developer"],
+    const typed = new Typed(typedEl.current, {
+      strings: ['Freelancer', 'Front-end Developer', 'Web Developer'],
       typeSpeed: 100,
-      backSpeed: 100,
-      backDelay: 1000,
+      backSpeed: 60,
       loop: true,
+      cursorChar: '|',
+      backDelay: 2000,
     });
 
     return () => {
@@ -27,116 +34,111 @@ const HeroSection = () => {
     };
   }, []);
 
-  // Função para Download CV
-  const handleDownloadCV = (e) => {
+  // Animações iniciais
+  useEffect(() => {
+    // Animação inicial - fade in
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    tl.fromTo(
+      profileRef.current,
+      { scale: 0.8, opacity: 0, y: 30 },
+      { scale: 1, opacity: 1, y: 0, duration: 1.2, delay: 0.3 }
+    )
+      .fromTo(
+        textRef.current,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.2 },
+        '-=0.8'
+      )
+      .fromTo(
+        btnGroupRef.current.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15 },
+        '-=0.6'
+      )
+      .fromTo(
+        socialRef.current.children,
+        { opacity: 0, y: 20 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.6, 
+          stagger: 0.1,
+          onComplete: () => {
+            // Adiciona um efeito sutil de flutuação ao perfil
+            gsap.to(profileRef.current, {
+              y: -10,
+              duration: 2,
+              repeat: -1,
+              yoyo: true,
+              ease: 'power1.inOut'
+            });
+          }
+        },
+        '-=0.4'
+      );
+
+    // Efeito parallax sutil ao rolar
+    gsap.to(textRef.current, {
+      y: 100,
+      scrollTrigger: {
+        trigger: '.hero-header',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }, []);
+
+  // Função para download do CV
+  const handleDownload = (e) => {
     e.preventDefault();
-    // Como o arquivo do CV não está disponível, mostrar um alerta
+    // Alerta para CV não disponível ou abrir em nova aba quando disponível
     alert("O CV estará disponível em breve!");
   };
 
-  // Navegação para contato
+  // Função para ir para contato
   const navigateToContact = (e) => {
     e.preventDefault();
     showSection("contact");
   };
 
-  // Handler para erro de carregamento da imagem
-  const handleImageError = () => {
-    console.log("Erro ao carregar a imagem de perfil");
-    setImageError(true);
+  // Lidar com erro de carregamento da imagem
+  const handleImageError = (e) => {
+    e.target.style.display = 'none';
+    const placeholder = e.target.parentNode.querySelector('.avatar-placeholder');
+    if (placeholder) {
+      placeholder.style.display = 'flex';
+    }
   };
 
-  // Animação inicial para a hero section
-  useEffect(() => {
-    // Garantir que o componente esteja montado e os elementos existam
-    if (!heroContainerRef.current) return;
-
-    const timeline = gsap.timeline();
-
-    // Usar querySelector a partir do ref para garantir que os elementos existam
-    const heroPic = heroContainerRef.current.querySelector(".hero-pic");
-
-    // Converter NodeList para array para evitar o erro
-    const heroTextElementsArray = Array.from(
-      heroContainerRef.current.querySelectorAll(
-        ".hero-text h5, .hero-text h1, .hero-text p"
-      )
-    );
-
-    const btnGroup = heroContainerRef.current.querySelector(".btn-group");
-    const social = heroContainerRef.current.querySelector(".social");
-
-    // Verificar se os elementos existem antes de animá-los
-    if (heroPic) {
-      timeline.fromTo(
-        heroPic,
-        { opacity: 0, x: -50 },
-        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" }
-      );
-    }
-
-    if (heroTextElementsArray.length > 0) {
-      timeline.fromTo(
-        heroTextElementsArray,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, stagger: 0.2, duration: 0.6, ease: "power2.out" }
-      );
-    }
-
-    // Agrupar btnGroup e social em um array apenas se ambos existirem
-    const animElements = [];
-    if (btnGroup) animElements.push(btnGroup);
-    if (social) animElements.push(social);
-
-    if (animElements.length > 0) {
-      timeline.fromTo(
-        animElements,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, stagger: 0.2, duration: 0.5, ease: "power2.out" }
-      );
-    }
-  }, []);
-
-  // Avatar placeholder para caso a imagem não carregue
-  const avatarPlaceholder = (
-    <div className="avatar-placeholder">
-      <i className="fas fa-user-circle"></i>
-    </div>
-  );
-
   return (
-    <div className="hero-header" ref={heroContainerRef}>
+    <div className="hero-header" id="home">
       <div className="wrapper">
         <Header />
-
         <div className="container">
-          <div className="hero-pic">
-            {imageError ? (
-              avatarPlaceholder
-            ) : (
-              <img
-                src="/images/photos/perfil.jpg"
-                alt="Luis Carlos profile"
-                onError={handleImageError}
-              />
-            )}
+          <div className="hero-pic" ref={profileRef}>
+            <img
+              src="/images/photos/perfil.jpg"
+              alt="Profile"
+              onError={handleImageError}
+            />
+            <div className="avatar-placeholder" style={{ display: 'none' }}>
+              <i className="fa fa-user"></i>
+            </div>
           </div>
-          <div className="hero-text">
+          <div className="hero-text" ref={textRef}>
             <h5>
-              Hi I'm{" "}
-              <span className="input" ref={typedElement}>
-                Freelancer
-              </span>
+              Olá, eu sou <span ref={typedEl}></span>
             </h5>
             <h1>Luís Carlos</h1>
-            <p id="passionText">
-              Creating robust and efficient backend architectures is not just my
-              profession; It's my passion!
+            <p>
+              Desenvolvedor front-end apaixonado por criar interfaces interativas e responsivas que proporcionam experiências excepcionais aos usuários.
             </p>
-            <div className="btn-group">
+            <div className="btn-group" ref={btnGroupRef}>
               <a
                 href="#"
-                onClick={handleDownloadCV}
+                onClick={handleDownload}
                 className="btn active"
                 aria-label="Download CV"
               >
@@ -148,25 +150,18 @@ const HeroSection = () => {
                 className="btn"
                 aria-label="Ir para seção de contato"
               >
-                Contact
+                Contato
               </a>
             </div>
-            <div className="social">
-              <a
-                href="https://www.linkedin.com/in/luiz-carlos-vitoriano-neto-56a58321b/?trk=opento_sprofile_topcard"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <i className="fa-brands fa-linkedin"></i>
+            <div className="social" ref={socialRef}>
+              <a href="https://github.com/LuisCarlos01" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <i><FaGithub /></i>
               </a>
-              <a
-                href="https://github.com/LuisCarlos01"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-              >
-                <i className="fa-brands fa-github"></i>
+              <a href="https://www.linkedin.com/in/luiz-carlos-vitoriano-neto-56a58321b/?trk=opento_sprofile_topcard" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i><FaLinkedin /></i>
+              </a>
+              <a href="mailto:your.email@example.com" aria-label="Email">
+                <i><FaEnvelope /></i>
               </a>
             </div>
           </div>

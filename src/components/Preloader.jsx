@@ -18,7 +18,14 @@ const Preloader = () => {
 
   return (
     <div className="preloader" id="preloader">
-      <h1>•olá</h1>
+      <div className="preloader-content">
+        <h1>•olá</h1>
+        <div className="preloader-dots">
+          <span className="dot"></span>
+          <span className="dot"></span>
+          <span className="dot"></span>
+        </div>
+      </div>
     </div>
   );
 };

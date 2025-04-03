@@ -46,6 +46,11 @@ body {
     var(--gray-dark),
     #1a1a1a
   ); /* Gradiente para o fundo */
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .wrapper {
@@ -53,6 +58,9 @@ body {
   max-width: 95%;
   margin: 0 auto;
   padding: 0 20px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Estilo do Cabeçalho e Navegação */
@@ -61,9 +69,13 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--gray-dark);
+  background-color: transparent !important;
   color: var(--gray-light);
-  border-bottom: 2px solid var(--purple-soft);
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* ===== ESTILOS DA LOGO ===== */
@@ -76,6 +88,15 @@ header {
   position: relative;
   cursor: pointer;
   transition: transform 0.3s ease;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  &::before,
+  &::after {
+    display: none !important;
+    content: none !important;
+  }
 }
 
 .copyright {
@@ -92,8 +113,8 @@ header {
   font-size: 24px;
   font-weight: 500;
   color: white;
-  opacity: 0;
-  transform: translateY(-10px);
+  opacity: 1; /* Torna o texto visível por padrão */
+  transform: translateY(0); /* Remove a transformação */
   transition: opacity 0.6s ease, transform 0.6s ease;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
@@ -1185,7 +1206,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--gray-dark);
+  background-color: transparent !important;
   color: var(--gray-light);
 }
 
@@ -1705,4 +1726,11 @@ header {
   background: rgba(0, 0, 0, 0.05);
   padding: 10px;
   border-radius: 4px;
+}
+
+/* Alterações para remover a barra quando rolada a página */
+header.scrolled {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
 }

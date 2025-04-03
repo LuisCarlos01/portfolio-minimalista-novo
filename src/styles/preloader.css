@@ -1,3 +1,19 @@
+/* Variáveis globais de design */
+:root {
+  --primary-color: #9b59b6;
+  --primary-light: rgba(155, 89, 182, 0.7);
+  --primary-ultralight: rgba(155, 89, 182, 0.3);
+  --primary-dark: #8e44ad;
+  --text-light: #ffffff;
+  --text-dimmed: rgba(255, 255, 255, 0.7);
+  --bg-dark: #161616;
+  --bg-darker: #0f0f1a;
+  --bg-gradient: linear-gradient(135deg, var(--bg-dark), var(--bg-darker));
+  --shadow-primary: 0 0 15px rgba(155, 89, 182, 0.5);
+  --transition-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 /* Estilos para o Preloader */
 * {
   box-sizing: border-box;
@@ -8,6 +24,7 @@
 body,
 html {
   height: 100%;
+  scroll-behavior: smooth;
 }
 .preloader {
   position: fixed;
@@ -15,24 +32,262 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #121212;
+  background: var(--bg-gradient);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: opacity 0.4s ease;
+  transition: opacity 1.2s var(--transition-smooth), backdrop-filter 0.8s ease,
+    -webkit-backdrop-filter 0.8s ease, transform 1s var(--transition-smooth);
+  overflow: hidden;
+  will-change: opacity, backdrop-filter, -webkit-backdrop-filter, transform;
+  perspective: 1000px;
 }
+
+/* Fundo com partículas para o preloader */
+.preloader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      circle,
+      var(--primary-ultralight) 1px,
+      transparent 1px
+    ),
+    radial-gradient(circle, var(--primary-ultralight) 0.5px, transparent 0.5px);
+  background-size: 30px 30px, 15px 15px;
+  background-position: 0 0, 15px 15px;
+  opacity: 0.3;
+  animation: fadeInOut 4s infinite alternate, rotateBg 120s linear infinite;
+}
+
+/* Elemento de brilho que se move pelo fundo */
+.preloader::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.5;
+  animation: movingLight 12s infinite alternate-reverse;
+  mix-blend-mode: screen;
+}
+
+/* Container do conteúdo do preloader */
+.preloader-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transform-style: preserve-3d;
+  animation: floatContent 6s infinite ease-in-out;
+}
+
+/* Estilos do texto do preloader */
 .preloader h1 {
-  font-size: 3rem;
-  color: #ffffff;
-  font-family: "Dancing Script", cursive;
+  position: relative;
+  font-size: 4.2rem;
+  background: linear-gradient(
+    135deg,
+    var(--text-light) 20%,
+    var(--primary-color) 80%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
   font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  filter: drop-shadow(0 0 15px var(--primary-ultralight));
+  animation: pulse 2s infinite ease-in-out;
+  margin-bottom: 30px;
+  text-transform: lowercase;
 }
+
+/* Linha decorativa abaixo do texto */
+.preloader h1::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary-light),
+    transparent
+  );
+  transform-origin: center;
+  animation: lineExpand 2s infinite alternate;
+}
+
+/* Pontos de carregamento */
+.preloader-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 6px;
+  border-radius: 50%;
+  background-color: var(--text-dimmed);
+  display: inline-block;
+  animation: dotPulse 1.5s infinite ease-in-out;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+  background-color: var(--text-dimmed);
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background-color: var(--primary-light);
+  box-shadow: 0 0 10px var(--primary-ultralight);
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+  background-color: var(--text-dimmed);
+}
+
+/* Conteúdo principal inicialmente invisível */
 #content {
   display: none;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 1s var(--transition-smooth),
+    transform 1s var(--transition-smooth), filter 1s var(--transition-smooth);
+  transform: translateY(20px);
+  will-change: opacity, transform, filter;
+  background-color: transparent;
 }
+
+/* Animações para os elementos do preloader */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes lineExpand {
+  0% {
+    transform: scaleX(0.3);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes rotateBg {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes movingLight {
+  0% {
+    transform: translate(-30vw, -30vh) scale(1);
+  }
+  25% {
+    transform: translate(30vw, -20vh) scale(1.2);
+  }
+  50% {
+    transform: translate(20vw, 30vh) scale(1);
+  }
+  75% {
+    transform: translate(-20vw, 20vh) scale(1.4);
+  }
+  100% {
+    transform: translate(-30vw, -30vh) scale(1);
+  }
+}
+
+@keyframes floatContent {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotateX(2deg);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+/* Media queries para responsividade */
+@media screen and (max-width: 768px) {
+  .preloader h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    margin: 0 5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .preloader h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+  }
+
+  .preloader::after {
+    width: 120px;
+    height: 120px;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    margin: 0 4px;
+  }
+}
+
 .skills-section {
   display: none;
 }
@@ -169,4 +424,125 @@ button:hover {
 }
 .contact-info a:hover {
   text-decoration: underline;
+}
+
+/* Adiciona uma overlay global para transições mais suaves */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  z-index: 9998; /* Abaixo do preloader */
+  opacity: 0;
+  transition: opacity 1.2s var(--transition-smooth);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition: opacity 1.2s var(--transition-smooth),
+    backdrop-filter 1s var(--transition-smooth),
+    -webkit-backdrop-filter 1s var(--transition-smooth);
+}
+
+body.transitioning::after {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* Estilos compartilhados para consistência entre páginas */
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+  width: 100%;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-dimmed);
+  margin-bottom: 2rem;
+  max-width: 700px;
+}
+
+/* Estilos base para botões consistentes */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.btn:focus:not(:active)::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20) translate(-50%, -50%);
+    opacity: 0;
+  }
 }
