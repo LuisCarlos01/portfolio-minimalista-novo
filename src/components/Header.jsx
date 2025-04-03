@@ -22,12 +22,8 @@ const Header = () => {
         { opacity: 1, duration: 0.8, ease: 'power3.out' }
       );
       
-      // Garantir que o texto do logo seja sempre visível
-      const logoText = logo.querySelector('.logo-text');
-      if (logoText) {
-        logoText.style.opacity = '1';
-        logoText.style.transform = 'translateY(0)';
-      }
+      // Removendo a configuração de forçar visibilidade do texto do logo
+      // O texto agora será controlado pelos estilos CSS:hover
     }
   }, []);
 

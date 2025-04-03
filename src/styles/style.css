@@ -99,37 +99,39 @@ header {
   }
 }
 
-.copyright {
+.copyright,
+.footer-copyright {
   font-family: "Dancing Script", cursive;
   font-weight: 500;
-  font-size: 22px;
+  font-size: 28px;
   color: white;
-  margin-right: 4px;
-  transition: transform 0.6s ease;
+  margin-right: 6px;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .logo-text {
   font-family: "Dancing Script", cursive;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 500;
   color: white;
-  opacity: 1; /* Torna o texto visível por padrão */
-  transform: translateY(0); /* Remove a transformação */
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: opacity 0.4s ease, transform 0.4s ease, max-width 0.4s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
 }
 
-.logo:hover .copyright {
-  transform: rotate(360deg);
+.logo:hover .footer-copyright {
+  transform: scale(1.1) rotate(360deg);
+  text-shadow: none !important;
 }
 
 .logo:hover .logo-text {
   opacity: 1;
-  transform: translateY(0);
-}
-
-.logo:hover {
-  transform: scale(1.05);
+  transform: translateX(0);
+  max-width: 250px;
+  margin-left: 8px;
 }
 
 /* Estilos existentes para o logo icon (se necessário) */
@@ -204,6 +206,26 @@ header {
 
   .navlinks li {
     margin: 1.5rem 0;
+  }
+
+  .copyright,
+  .footer-copyright {
+    font-size: 22px;
+  }
+
+  .logo-text {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .copyright,
+  .footer-copyright {
+    font-size: 20px;
+  }
+
+  .logo-text {
+    font-size: 20px;
   }
 }
 
@@ -1733,4 +1755,18 @@ header.scrolled {
   background-color: transparent !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+/* Estilo do símbolo copyright */
+.footer-copyright {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--purple-soft);
+  background: linear-gradient(to right, var(--purple-soft), #c27fd9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  text-shadow: none !important;
 }
