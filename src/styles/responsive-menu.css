@@ -1,0 +1,271 @@
+/* Menu Responsivo Adaptativo */
+
+/* Estilos gerais do menu para todos os tamanhos de tela */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--gray-dark);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border-bottom: 2px solid var(--purple-soft);
+}
+
+/* Estilo padrão das opções do menu */
+.navlinks {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  transition: all 0.4s ease;
+}
+
+.navlinks li {
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.navlinks a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  position: relative;
+  padding: 0.4rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Efeito de underline nos links do menu desktop */
+.navlinks a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple-soft), transparent);
+  transition: width 0.3s ease;
+}
+
+.navlinks a:hover::after {
+  width: 100%;
+}
+
+.navlinks a:hover {
+  color: var(--purple-soft);
+  transform: translateY(-2px);
+}
+
+/* Botão de toggle inicialmente oculto */
+.togglebtn {
+  display: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+/* Overlay para fundo escurecido (inicialmente oculto) */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 980;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* ======= MEDIA QUERIES PARA RESPONSIVIDADE ======= */
+
+/* Estilo para telas médias e pequenas (tablet/mobile) */
+@media screen and (max-width: 992px) {
+  /* Exibir o botão de toggle e ajustar seu estilo */
+  .togglebtn {
+    display: block;
+  }
+
+  .togglebtn .bar {
+    display: block;
+    width: 30px;
+    height: 3px;
+    margin: 6px auto;
+    background: linear-gradient(90deg, var(--purple-soft), #8e44ad);
+    border-radius: 3px;
+    transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    box-shadow: 0 0 8px rgba(155, 89, 182, 0.5);
+  }
+
+  /* Animação do X quando ativo */
+  .togglebtn.active {
+    transform: rotate(180deg) scale(1.1);
+  }
+
+  .togglebtn.active .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    background: linear-gradient(90deg, var(--purple-soft), #8e44ad);
+  }
+
+  .togglebtn.active .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .togglebtn.active .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background: linear-gradient(90deg, #8e44ad, var(--purple-soft));
+  }
+
+  /* Transformar menu horizontal em menu vertical lateral */
+  .navlinks {
+    position: fixed;
+    right: -100%;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 990;
+    transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    border-left: 1px solid rgba(155, 89, 182, 0.3);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  }
+
+  .navlinks.open {
+    right: 0;
+    animation: menuReveal 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6) forwards;
+  }
+
+  .navlinks li {
+    margin: 1.5rem 0;
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .navlinks.open li {
+    opacity: 1;
+    transform: translateX(0);
+    animation: fadeInRight 0.5s ease forwards;
+  }
+
+  /* Delay escalonado para cada item do menu */
+  .navlinks.open li:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .navlinks.open li:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .navlinks.open li:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .navlinks.open li:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .navlinks.open li:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  /* Estilo dos links do menu mobile */
+  .navlinks a {
+    font-size: 1.4rem;
+    padding: 8px 15px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Ajustar o efeito hover para o menu mobile */
+  .navlinks a:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 10px 20px rgba(155, 89, 182, 0.5);
+  }
+
+  /* Ajustar underline para o menu mobile */
+  .navlinks a::after {
+    left: 50%;
+    width: 0;
+  }
+
+  .navlinks a:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+  /* Ativar overlay quando o menu mobile está aberto */
+  .menu-overlay.active {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 0.5s ease forwards;
+  }
+}
+
+/* Ajustes para tablets */
+@media screen and (max-width: 768px) {
+  .navlinks {
+    width: 70%;
+  }
+
+  .navlinks a {
+    font-size: 1.3rem;
+  }
+}
+
+/* Ajustes para smartphones */
+@media screen and (max-width: 480px) {
+  header {
+    padding: 1rem;
+  }
+
+  .navlinks {
+    width: 85%;
+  }
+
+  .navlinks a {
+    font-size: 1.2rem;
+  }
+
+  .togglebtn .bar {
+    width: 25px;
+  }
+}
+
+/* Keyframes para animações */
+@keyframes menuReveal {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

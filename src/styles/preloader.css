@@ -1,0 +1,172 @@
+/* Estilos para o Preloader */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+body,
+html {
+  height: 100%;
+}
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #121212;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease;
+}
+.preloader h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+}
+#content {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.skills-section {
+  display: none;
+}
+.skill-description {
+  display: none;
+}
+
+/* Estilo do Modal */
+.skill-preview {
+  display: none; /* Oculta o modal por padrão */
+  position: fixed; /* Fixa o modal na tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com transparência */
+  color: white;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Para aparecer acima de outros elementos */
+  transition: opacity 0.5s; /* Suaviza a transição de opacidade */
+}
+
+/* Estilo do conteúdo do modal */
+.preview-content {
+  background: #444;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.close-preview {
+  cursor: pointer;
+  margin-top: 20px;
+  color: #9b59b6; /* Roxo suave */
+}
+
+/* Estilo do footer */
+footer {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Suaviza a transição de opacidade */
+  background-color: var(--gray-dark); /* Fundo cinza escuro */
+  color: var(--gray-light); /* Texto cinza claro */
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  border-top: 2px solid var(--purple-soft); /* Linha superior roxa */
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-logo {
+  font-size: 1.2rem;
+}
+.footer-links a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.footer-social a {
+  color: white;
+  margin: 0 10px;
+  font-size: 1.5rem;
+}
+
+/* Estilos da seção de contato */
+.contact-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+.contact-header h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+.contact-form {
+  flex-basis: 50%;
+}
+.contact-form form {
+  display: grid;
+  gap: 20px;
+}
+.form-group label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+.form-group textarea {
+  height: 150px;
+}
+button {
+  background-color: #9b59b6;
+  border: none;
+  color: #fff;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button:hover {
+  background-color: #9b59b6;
+}
+.contact-info {
+  flex-basis: 30%;
+}
+.contact-info p {
+  margin-bottom: 10px;
+}
+.contact-info a {
+  color: #9b59b6;
+  text-decoration: none;
+}
+.contact-info a:hover {
+  text-decoration: underline;
+}
