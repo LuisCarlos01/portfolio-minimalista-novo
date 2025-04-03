@@ -419,42 +419,28 @@ const SkillsSection = () => {
       position: "relative",
       zIndex: 5,
       maxWidth: "900px",
-      margin: "0 auto 4rem",
-      padding: "0 1.5rem",
+      margin: "0 auto",
+      padding: "2rem 1.5rem 6rem",
     },
     sectionTitle: {
       fontSize: "3.5rem",
       fontWeight: "700",
-      background: "linear-gradient(to right, #9b59b6, #8e44ad)",
-      backgroundClip: "text",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      textShadow: "0 0 30px rgba(155, 89, 182, 0.3)",
-      marginBottom: "1.5rem",
+      color: "white",
+      marginBottom: "2.5rem",
       position: "relative",
       display: "inline-block",
-    },
-    titleGlow: {
-      content: '""',
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      left: "0",
-      top: "0",
-      background: "linear-gradient(to right, #9b59b6, #8e44ad)",
-      filter: "blur(25px)",
-      opacity: "0.5",
-      zIndex: "-1",
+      letterSpacing: "1px",
+      textTransform: "uppercase",
     },
     titleUnderline: {
       content: '""',
       position: "absolute",
-      width: "120px",
+      width: "80px",
       height: "4px",
-      bottom: "-10px",
+      bottom: "-15px",
       left: "50%",
       transform: "translateX(-50%)",
-      background: "linear-gradient(to right, #9b59b6, transparent)",
+      background: "#9b59b6",
       borderRadius: "2px",
     },
     sectionDescription: {
@@ -463,7 +449,6 @@ const SkillsSection = () => {
       color: "rgba(255, 255, 255, 0.85)",
       maxWidth: "700px",
       margin: "0 auto",
-      padding: "0 1rem",
       position: "relative",
       textAlign: "center",
       letterSpacing: "0.3px",
@@ -479,6 +464,9 @@ const SkillsSection = () => {
       color: "#9b59b6",
       fontWeight: "400",
     },
+    categoriesContainer: {
+      marginTop: "-2rem",
+    },
   };
 
   return (
@@ -492,7 +480,6 @@ const SkillsSection = () => {
           className="section-title"
         >
           Minhas Habilidades
-          <span style={styles.titleGlow}></span>
           <span style={styles.titleUnderline}></span>
         </h2>
         <p style={styles.sectionDescription} className="section-description">
@@ -505,7 +492,7 @@ const SkillsSection = () => {
         </p>
       </div>
 
-      <div className="skills-categories">
+      <div style={styles.categoriesContainer} className="skills-categories">
         <button
           className={`category-btn ${
             activeCategory === "Todas" ? "active" : ""
